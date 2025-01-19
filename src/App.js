@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <div className="app">
-        <h1>TO-DO APP</h1>
+        <h1>TASKBUDDY</h1>
           <Home />
       </div>
     </>
