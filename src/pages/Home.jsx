@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+//import 'taskbuddy';
 
 function Home() {
   const [task, setTask] = useState(''); // Input field value
@@ -23,18 +24,47 @@ function Home() {
   // Move task to another category
   const moveTask = (currentCategory, targetCategory, taskToMove) => {
     setTasks((prevTasks) => {
-      // Remove task from current category
       const updatedCurrent = prevTasks[currentCategory].filter(
         (t) => t !== taskToMove
       );
-      // Add task to target category
       const updatedTarget = [...prevTasks[targetCategory], taskToMove];
       return { ...prevTasks, [currentCategory]: updatedCurrent, [targetCategory]: updatedTarget };
     });
   };
 
+  // Delete a task from a category
+  const deleteTask = (category, taskToDelete) => {
+    setTasks((prevTasks) => ({
+      ...prevTasks,
+      [category]: prevTasks[category].filter((t) => t !== taskToDelete),
+    }));
+  };
+
+  // Clear all tasks from a specific category
+  const clearAllTasks = (category) => {
+    setTasks((prevTasks) => ({
+      ...prevTasks,
+      [category]: [],
+    }));
+  };
+
+  // Clear all tasks from all categories
+  const clearAllSections = () => {
+    setTasks({ todo: [], ongoing: [], completed: [] });
+  };
+
   return (
+    <>
+     
+     <h1 className="logo">
+          <img src="task-buddy-logo.png" alt="TaskBuddy Logo" /> 
+        </h1>
+        
     <div className="home">
+      {/* TaskBuddy Logo Heading */}
+     {/*<h1 className="logo">
+          <img src="taskbuddy.png" alt="TaskBuddy Logo" /> 
+  </h1>*/}
       <form
         className="task-form"
         onSubmit={(e) => {
@@ -55,17 +85,30 @@ function Home() {
           onClick={addTask}
         >
           ADD TASK
-        </button>
+        </button><button>  </button>
+        {/* Clear All Sections Button */}
+        <button
+            className="clear-all-button"
+            onClick={clearAllSections}
+          >
+            CLEAR TASKS
+          </button>
       </form>
       <div className="task-sections">
         {/* To-Do Section */}
         <div className="task-section">
           <h2>To-Do Tasks</h2>
+          <button 
+            className="clear-all-button"
+            onClick={() => clearAllTasks('todo')}
+          >
+            Clear All Tasks
+          </button>
           <ul>
             {tasks.todo.map((t, index) => (
               <li key={index}>
                 {t}
-                <button
+                <button className="todo-button"
                   onClick={() => moveTask('todo', 'ongoing', t)}
                 >
                   Move to Ongoing
@@ -75,6 +118,11 @@ function Home() {
                 >
                   Move to Completed
                 </button>
+                <button className="delete-button"
+                  onClick={() => deleteTask('todo', t)}
+                >
+                  Delete Task
+                </button>
               </li>
             ))}
           </ul>
@@ -83,6 +131,12 @@ function Home() {
         {/* Ongoing Section */}
         <div className="task-section">
           <h2>Ongoing Tasks</h2>
+          <button
+            className="clear-all-button"
+            onClick={() => clearAllTasks('ongoing')}
+          >
+            Clear All Tasks
+          </button>
           <ul>
             {tasks.ongoing.map((t, index) => (
               <li key={index}>
@@ -97,6 +151,11 @@ function Home() {
                 >
                   Move to Completed
                 </button>
+                <button className="delete-button"
+                  onClick={() => deleteTask('ongoing', t)}
+                >
+                  Delete Task
+                </button>
               </li>
             ))}
           </ul>
@@ -105,6 +164,12 @@ function Home() {
         {/* Completed Section */}
         <div className="task-section">
           <h2>Completed Tasks</h2>
+          <button
+            className="clear-all-button"
+            onClick={() => clearAllTasks('completed')}
+          >
+            Clear All Tasks
+          </button>
           <ul>
             {tasks.completed.map((t, index) => (
               <li key={index}>
@@ -114,10 +179,15 @@ function Home() {
                 >
                   Move to To-Do
                 </button>
-                <button
+                <button className="todo-button"
                   onClick={() => moveTask('completed', 'ongoing', t)}
                 >
                   Move to Ongoing
+                </button>
+                <button
+                  onClick={() => deleteTask('completed', t)}
+                >
+                  Delete Task
                 </button>
               </li>
             ))}
@@ -125,6 +195,7 @@ function Home() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
