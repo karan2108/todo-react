@@ -1,10 +1,11 @@
+
 /* General Styling */
 /* Background Styling */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-image: url('./background.jpg');
+    /* background-image: url('./background.jpg'); */
   }
   
   body {
@@ -12,7 +13,7 @@
     margin: 0;
     padding: 0;
     
-    /*background: linear-gradient(135deg, #89f7fe, #66a6ff);*/
+    background: linear-gradient(135deg, #89f7fe, #66a6ff);
     background-attachment: fixed;
     background-size: cover;
     color: #333;
@@ -22,6 +23,20 @@
   .home {
     max-width: 900px;
     margin: 20px auto;
+  }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.home {
     padding: 20px;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
@@ -189,4 +204,9 @@
   height: 400px;
     width: 400px; /* Adjust width as needed */
     height: auto; /* Maintain aspect ratio */
+}
+
+.task-section h2 {
+    text-align: center;
+    margin-bottom: 10px;
 }
